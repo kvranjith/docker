@@ -1,8 +1,7 @@
 node{
 	def app
 	def image = "8kmilesranjith/ubuntu:${env.BUILD_NUMBER}"
-	agent any
-	
+		
 	stage('clone git Repo'){
 		checkout scm
 	}
