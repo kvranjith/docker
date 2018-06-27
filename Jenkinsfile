@@ -8,7 +8,7 @@ node{
 	}
 	stage('docker build'){
 		
-		app = docker.build("${repo}/ubuntu")
+		app = docker.build("8kmilesranjith/ubuntu")
 	}
 	stage('Run docker image'){
 		sh("docker run ${repo}/ubuntu go test")
