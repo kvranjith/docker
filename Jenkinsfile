@@ -1,12 +1,13 @@
 node{
 	def app
-	def image = "8kmilesranjith/ubuntu:${env.BUILD_NUMBER}"
+	def image = "ubuntu"
+	def repo = "8kmilesranjith"
 		
 	stage('clone git Repo'){
 		checkout scm
 	}
 	stage('docker build'){
-		sh("docker build -t ${image} .")
-		app = docker build("${image}")
+		
+		app = docker build("${repo}/${image}")
 	}
     }
