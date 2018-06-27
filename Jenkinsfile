@@ -11,6 +11,12 @@ node{
 		
 	}
 	stage('Run docker image'){
-		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
+		sh "docker run  -a stdin -a stdout -i -t ${repo}/${image}:${env.BUILD_NUMBER} /bin/bash" 
     }
+	stage('push image'){
+		docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
+        }
+	
+	}
 	}
