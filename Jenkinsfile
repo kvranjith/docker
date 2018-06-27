@@ -11,6 +11,6 @@ node{
 		
 	}
 	stage('Run docker image'){
-		sh "docker run -it ${repo}/${image}:${env.BUILD_NUMBER} go test" 
+		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
     }
 	}
