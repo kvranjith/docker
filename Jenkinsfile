@@ -7,7 +7,7 @@ node{
 		checkout scm
 	}
 	stage('docker build'){
-		sh("docker build -t 8kmilesranjith/ubuntu .")
+		sh("sudo docker build -t 8kmilesranjith/ubuntu .")
 		app = docker.build("8kmilesranjith/ubuntu")
 	}
 	stage('Run docker image'){
