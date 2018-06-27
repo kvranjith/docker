@@ -13,3 +13,4 @@ node{
 	stage('Run docker image'){
 		sh("docker run ${repo}/ubuntu go test")
     }
+	}
