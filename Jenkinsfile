@@ -6,6 +6,7 @@ node{
 		checkout scm
 	}
 	stage('docker build'){
-		sh("docker build -t ${image}.")
+		sh("docker build -t ${image} .")
+		app = docker build("${image}")
 	}
     }
