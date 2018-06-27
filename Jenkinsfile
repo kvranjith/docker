@@ -1,15 +1,12 @@
-node {
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
+node{
+	def app
+	def image = "8kmilesranjith/ubuntu:${env.BUILD_NUMBER}"
+	agent any
+	
+	stage('clone git Repo'){
+		checkout scm
+	}
+	stage('docker build'){
+		sh("docker build -t ${image} .")
+	}
     }
-
-    stage('Describe Instance') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        sh 'python setup.py'
-
-    }
-}
