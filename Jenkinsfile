@@ -7,10 +7,10 @@ node{
 		checkout scm
 	}
 	stage('docker build'){
-		sh "docker build -t 8kmilesranjith/ubuntu ."
+		sh "docker build -t ${repo}/${image}:${env.BUILD_NUMBER} ."
 		
 	}
 	stage('Run docker image'){
-		sh("docker run ${repo}/ubuntu go test")
+		sh "docker run -it ${repo}/${image}:${env.BUILD_NUMBER} go test" 
     }
 	}
