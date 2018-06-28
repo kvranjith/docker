@@ -1,29 +1,25 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
+node{
+	def app
+	def image = "ubuntu"
+	def repo = "8kmilesranjith"
+	
+	stage('CLONE GIT'){
+		checkout scm
+	}
+	stage('BUILD DOCKER'){
+		sh "docker build -t ${repo}/${image}:${env.BUILD_NUMBER} ."
+		
+	}
+	stage('RUN DOCKER'){
+		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
     }
-
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        app = docker.build("8kmilesranjith/ubuntu")
-    }
-
-  
-
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://index.docker.io/v1', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
-    }
-}
+	
+	stage('Login Docker Hub'){
+			sh "docker login -u 8kmilesranjith -p Vprema@3 --email=k_vranjith@yahoo.co.in"
+	}
+	stage('PUSH IMAGE'){
+	
+            sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
+    
+	}
+	}
