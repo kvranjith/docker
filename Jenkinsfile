@@ -3,17 +3,23 @@ node{
 	def image = "ubuntu"
 	def repo = "8kmilesranjith"
 		
-	stage('clone git Repo'){
+	stage('CLONE GIT'){
 		checkout scm
 	}
-	stage('docker build'){
+	stage('BUILD DOCKER'){
 		sh "docker build -t ${repo}/${image}:${env.BUILD_NUMBER} ."
 		
 	}
-	stage('Run docker image'){
+	stage('RUN DOCKER'){
 		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
     }
-	stage('push image'){
+	
+	stage('Login Docker Hub'){
+		
+            sh "docker login -u 8kmilesranjith -p Vprema@3"
+	
+	}
+	stage('PUSH IMAGE'){
 		
             sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
 	
