@@ -22,8 +22,8 @@ node{
 				}	
 	}
 	stage('PUSH IMAGE'){
-		
+	docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
             sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
-	
+        }
 	}
 	}
