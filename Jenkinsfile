@@ -14,7 +14,7 @@ node{
 		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
     }
 	stage('push image'){
-		docker.withRegistry('https://index.docker.io/v1', 'docker-hub-credentials') {
+		docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
         }
 	
