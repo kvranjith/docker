@@ -2,7 +2,7 @@ node{
 	def app
 	def image = "ubuntu"
 	def repo = "8kmilesranjith"
-		
+	
 	stage('CLONE GIT'){
 		checkout scm
 	}
@@ -15,11 +15,11 @@ node{
     }
 	
 	stage('Login Docker Hub'){
-			agent {docker
-			{
-			label 'docker-login
-			}
-			}	
+			agent {
+				docker{
+					label 'docker-login'
+					}
+				}	
 	}
 	stage('PUSH IMAGE'){
 		
