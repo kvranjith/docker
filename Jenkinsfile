@@ -14,9 +14,8 @@ node{
 		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
     }
 	stage('push image'){
-		docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-            sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
-        }
+		sh "docker login -u 8kmilesranjith -p Vprema@3"
+		sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
 	
 	}
 	}
