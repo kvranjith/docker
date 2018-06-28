@@ -15,9 +15,11 @@ node{
     }
 	
 	stage('Login Docker Hub'){
-		
-            sh "docker login -u 8kmilesranjith -p Vprema@3"
-	
+			agent {docker
+			{
+			label 'docker-login
+			}
+			}	
 	}
 	stage('PUSH IMAGE'){
 		
