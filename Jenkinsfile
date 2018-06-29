@@ -14,12 +14,26 @@ node{
 		sh "docker run ${repo}/${image}:${env.BUILD_NUMBER}" 
     }
 	
-	stage('Login Docker Hub'){
-			sh "docker login -u 8kmilesranjith -p Vprema@3 --email=k_vranjith@yahoo.co.in"
-	}
 	stage('PUSH IMAGE'){
 	
-            sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
+            sh "docker login -u 8kmilesranjith -p Vprema@3 --email=k_vranjith@yahoo.co.in"
+			sh "docker push ${repo}/${image}:${env.BUILD_NUMBER}"
+			sh "docker push ${repo}/${image}:latest"
     
+	}
+	stage ('KUBERNETES CONNECTION'){
+		withKubeConfig([credentialsId:'kubernetes',serverUrl:'https://api.k8s.kube.com'])
+          {
+          sh 'kubectl get pods --all-namespaces'
+          sh 'kubectl get nodes -o wide'
+          sh 'kubectl get svc --all-namespaces'
+         }
+		
+	}
+	stage('DEPLOY PODS'){
+		withKubeConfig([credentialsId:'kubernetes',serverUrl:'https://api.k8s.kube.com'])
+            {
+            sh 'kubectl run python1 --image=8kmilesranjith/ubuntu:38 -it'
+			}
 	}
 	}
