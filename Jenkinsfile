@@ -33,7 +33,7 @@ node{
 	stage('DEPLOY PODS'){
 		withKubeConfig([credentialsId:'kubernetes',serverUrl:'https://api.k8s.kube.com'])
             {
-            sh 'kubectl run python1 --image=8kmilesranjith/ubuntu:38 -it'
+            sh 'kubectl run pyt --image=8kmilesranjith/ubuntu:38 -it'
 			}
 	}
 	}
